@@ -1,0 +1,24 @@
+server:
+  port: 13124
+
+#spring:
+#  application:
+#    name: nacos-client-1
+#  datasource:
+#    url: jdbc:mysql://192.168.201.16:3306/callcenter?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai&useSSL=false
+#    username: callcenter
+#    password: callcenter
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#spring:
+#  zipkin:
+#    base-url: http://localhost:9411/
+spring:
+  servlet:
+    multipart:
+      enabled: true
+      # 单个文件最大
+      max-file-size: 1MB
+      # 单次请求最大
+      max-request-size: 10MB
+      # 上传文件临时存放位置
+      location: E:/temp
