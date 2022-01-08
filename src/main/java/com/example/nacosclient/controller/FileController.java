@@ -1,11 +1,10 @@
 package com.example.nacosclient.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.example.nacosclient.bo.HelloBO;
+import com.example.nacosclient.exception.FileException;
 import com.example.nacosclient.service.FileService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -15,8 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.*;
-import java.nio.file.Files;
+import java.io.IOException;
 import java.nio.file.Path;
 
 /**
@@ -71,8 +69,12 @@ public class FileController {
                 .body(resource);
     }
 
+    /**
+     * @param response
+     * @param fileName
+     */
     @RequestMapping("/download")
-    public String fileDownLoad(HttpServletResponse response, @RequestParam("fileName") String fileName){
+    public void fileDownLoad(HttpServletResponse response, @RequestParam("fileName") String fileName){
         Path path = fileService.resolvePath(fileName);
         response.reset();
         response.setContentType("application/octet-stream");
@@ -83,9 +85,8 @@ public class FileController {
             fileService.copyStream(fileName, response.getOutputStream());
         } catch (IOException e) {
             log.error("{}",e);
-            return "下载失败";
+            throw new FileException(e);
         }
-        return "下载成功";
     }
 
 }

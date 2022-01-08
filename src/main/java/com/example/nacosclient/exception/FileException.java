@@ -15,4 +15,8 @@ public class FileException extends RuntimeException {
         super(message);
     }
 
+    public FileException(Throwable e) {
+        super(e);
+    }
+
 }
