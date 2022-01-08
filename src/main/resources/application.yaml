@@ -24,3 +24,22 @@ spring:
       max-request-size: 10MB
       # 上传文件临时存放位置
       location: E:/temp
+feign:
+  hystrix:
+    enabled: true
+  client:
+    # feign 默认配置为 连接超时 10秒，读超时 60秒
+    # 如果开启 ribbon，并且配置了feign的超时时间，那么以feign的为准。否则以ribbon为准，ribbon默认连接超时、读超时都为1秒
+    config:
+      default:
+        connectTimeout: 3000
+        readTimeout: 3000
+
+hystrix:
+  command:
+    # hystrix 默认线程超时为 1 秒
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 3000
