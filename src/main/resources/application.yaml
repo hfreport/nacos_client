@@ -34,6 +34,7 @@ feign:
       default:
         connectTimeout: 3000
         readTimeout: 3000
+        errorDecoder: com.example.app.config.FeignErrorDecoder
 
 # ribbon 默认为1秒
 ribbon:
