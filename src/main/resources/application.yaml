@@ -35,6 +35,11 @@ feign:
         connectTimeout: 3000
         readTimeout: 3000
 
+# ribbon 默认为1秒
+ribbon:
+  ConnectTimeout: 10000
+  ReadTimeout: 10000
+
 hystrix:
   command:
     # hystrix 默认线程超时为 1 秒
