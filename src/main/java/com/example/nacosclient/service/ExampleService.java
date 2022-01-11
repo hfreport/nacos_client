@@ -1,6 +1,7 @@
 package com.example.nacosclient.service;
 
 import com.example.nacosclient.bo.HelloBO;
+import com.example.nacosclient.vo.CallCenterAppInfoVO;
 
 /**
  * @author hf
@@ -9,6 +10,17 @@ import com.example.nacosclient.bo.HelloBO;
  */
 public interface ExampleService {
 
-
+    /**
+     * 示例请求
+     * @return
+     */
     HelloBO hello();
+
+    /**
+     * 保存数据到数据库
+     * @param bizData
+     * @return
+     */
+    boolean saveData(CallCenterAppInfoVO bizData);
+
 }

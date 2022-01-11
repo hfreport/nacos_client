@@ -25,7 +25,9 @@ public interface ExampleFeign {
         @Override
         public Result<HelloBO> hello() {
             log.info(" 服务降级 ");
-            return Result.buildSuccess("降级");
+            HelloBO helloBO = new HelloBO();
+            helloBO.setMes("降级");
+            return Result.buildSuccess(helloBO);
         }
     }
 
