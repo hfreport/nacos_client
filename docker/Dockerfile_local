@@ -1,0 +1,29 @@
+FROM openjdk:11
+# 设置时区
+RUN /bin/cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
+  && echo 'Asia/Shanghai' >/etc/timezone
+# 指定编码
+ENV LANG en_US.UTF-8
+ENV LANGUAGE en_US:en
+ENV LC_ALL en_US.UTF-8
+
+# 拷贝文件到容器
+ARG APP_JAR_FILE=../target/nacos_client.jar
+COPY ${APP_JAR_FILE}  /opt/app.jar
+
+# jvm参数
+ENV JAVA_OPTS="\
+-Xms512m \
+-Xmx512m \
+-Dserver.port=9999 \
+-Dconfig.need.consume=false \
+-Xdebug \
+-Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5005"
+
+# 服务端口
+EXPOSE 9999
+# 远程调试端口
+EXPOSE 5005
+
+# 启动命令
+ENTRYPOINT java ${JAVA_OPTS} -jar /opt/app.jar
